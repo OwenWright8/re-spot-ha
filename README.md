@@ -21,7 +21,7 @@ Every Echo Spot (2017) running [Rondel](https://spot.wrightserver.org) shows up 
 3. Go to **Settings → Devices & services → Add integration → Rondel**.
 4. On each Spot, hold the screen to open Settings and connect it to Home Assistant with a URL and a long-lived token. The Spot finds the integration and registers itself. Its device appears within a few seconds.
 
-If the integration isn't installed, Rondel falls back to creating `input_*` helpers (`input_select.echo_spot_face` and similar) as before.
+Any user's long-lived token works; it doesn't need to be an admin's. Older Rondel versions created `input_*` helpers such as `input_select.echo_spot_face`. Those are no longer used and can be deleted under **Settings → Devices & services → Helpers**.
 
 ## How it works
 
