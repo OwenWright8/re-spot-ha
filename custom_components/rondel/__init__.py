@@ -10,7 +10,7 @@ back through the entities' normal services. Nothing here connects to the Spot di
 from __future__ import annotations
 
 from datetime import timedelta
-import time
+from time import monotonic
 
 import voluptuous as vol
 
@@ -79,7 +79,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: RondelConfigEntry) -> bo
                 alarm_time=init.get("alarm_time", "07:00:00"),
                 alarm_on=init.get("alarm_on", False),
             )
-            hub.spots[spot_id] = spot
         else:
             if data.get("faces"):
                 spot.faces = list(data["faces"])
@@ -88,13 +87,15 @@ async def async_setup_entry(hass: HomeAssistant, entry: RondelConfigEntry) -> bo
                 devices = dr.async_get(hass)
                 if device := devices.async_get_device(identifiers={(DOMAIN, spot_id)}):
                     devices.async_update_device(device.id, name=spot.name)
-        spot.last_seen = time.monotonic()
+        spot.last_seen = monotonic()
         if "version" in data:
             spot.version = data["version"]
         if "message" in data:
             spot.last_message = data["message"]
 
         if is_new:
+            # Only now, so a failure above can't leave a Spot without entities.
+            hub.spots[spot_id] = spot
             async_dispatcher_send(hass, SIGNAL_NEW_SPOT, spot)
         hub.changed(spot)
         if event := data.get("event"):

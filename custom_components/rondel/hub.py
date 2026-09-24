@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field, fields
-import time
+from time import monotonic
 from typing import Any
 
 from homeassistant.config_entries import ConfigEntry
@@ -36,7 +36,7 @@ class Spot:
     @property
     def online(self) -> bool:
         """True if the Spot reported recently."""
-        return self.last_seen > 0 and time.monotonic() - self.last_seen < ONLINE_TIMEOUT
+        return self.last_seen > 0 and monotonic() - self.last_seen < ONLINE_TIMEOUT
 
 
 class RondelHub:
