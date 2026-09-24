@@ -1,0 +1,26 @@
+report:
+  fields:
+    spot_id:
+      required: true
+      example: "3f9a1c2b7d4e5f60"
+      selector:
+        text:
+    name:
+      example: "Bedroom Spot"
+      selector:
+        text:
+    faces:
+      selector:
+        object:
+    version:
+      selector:
+        text:
+    init:
+      selector:
+        object:
+    message:
+      selector:
+        text:
+    event:
+      selector:
+        object:

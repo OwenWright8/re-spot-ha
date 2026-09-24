@@ -1,0 +1,51 @@
+# Rondel for Home Assistant
+
+Every Echo Spot (2017) running [Rondel](https://spot.wrightserver.org) shows up in Home Assistant as its own device, with all of its settings on one page.
+
+| Entity | What it does |
+| --- | --- |
+| **Face** (select) | The face on screen. Change it from HA, or swipe on the Spot and it updates here. |
+| **Screen** (switch) | Screen on/off. |
+| **Brightness** (number) | Backlight brightness, 5–100 %. |
+| **Alarm time** (time) / **Alarm** (switch) | The Spot's daily sunrise alarm. |
+| **Top button** (event) | `single`, `double` and `hold` presses of the Spot's top button. Use it to trigger automations. |
+| **Alarm** (event) | `sunrise`, `ringing`, `dismissed`, `timeout`, `cancelled`. |
+| **Last message** (sensor) | The latest icon a connected friend's Spot sent. |
+| **Message** (notify) | `notify.send_message` shows a pop-up with a chime on the Spot. |
+| **Connected** (binary sensor) | Whether the Spot has checked in during the last few minutes. |
+
+## Install
+
+1. In HACS, open **⋮ → Custom repositories**. Add `https://github.com/OwenWright8/rondel-ha` with type **Integration**.
+2. Search HACS for **Rondel**, download it, then restart Home Assistant.
+3. Go to **Settings → Devices & services → Add integration → Rondel**.
+4. On each Spot, hold the screen to open Settings and connect it to Home Assistant with a URL and a long-lived token. The Spot finds the integration and registers itself. Its device appears within a few seconds.
+
+If the integration isn't installed, Rondel falls back to creating `input_*` helpers (`input_select.echo_spot_face` and similar) as before.
+
+## How it works
+
+The Spot already keeps a websocket connection to Home Assistant for its Home dial, so nothing new connects to the Spot. The Spot calls `rondel.report` to register, and then once a minute to check in and to report button presses, alarm stages and messages. The response tells the Spot which entities are its controls. It follows their state and sets them when you change something on the Spot. `notify` messages reach it as `rondel_notify` events.
+
+## Examples
+
+```yaml
+# Night face at 10 pm
+- trigger: { trigger: time, at: "22:00:00" }
+  action:
+    - action: select.select_option
+      target: { entity_id: select.bedroom_spot_face }
+      data: { option: Night }
+
+# Top button pressed twice → all lights off
+- trigger: { trigger: state, entity_id: event.bedroom_spot_top_button }
+  condition: "{{ trigger.to_state.attributes.event_type == 'double' }}"
+  action:
+    - action: light.turn_off
+      target: { entity_id: all }
+
+# Message on the screen
+- action: notify.send_message
+  target: { entity_id: notify.bedroom_spot_message }
+  data: { title: Laundry, message: The dryer is done }
+```
