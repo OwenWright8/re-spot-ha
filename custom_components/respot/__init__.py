@@ -1,7 +1,7 @@
-"""Rondel: Echo Spots running the Rondel player appear as devices with their settings.
+"""re-spot: Echo Spots running the re-spot player appear as devices with their settings.
 
 The Spot keeps its own websocket connection to Home Assistant (as it does for its Home dial).
-It calls ``rondel.report`` to register, to send a heartbeat, and to report button/alarm events and
+It calls ``respot.report`` to register, to send a heartbeat, and to report button/alarm events and
 messages; the response tells it which entities are its controls. From then on it follows those
 entities' state changes (face, screen, brightness, alarm), and changes made on the Spot are sent
 back through the entities' normal services. Nothing here connects to the Spot directly.
@@ -22,9 +22,9 @@ from homeassistant.helpers.dispatcher import async_dispatcher_send
 from homeassistant.helpers.event import async_track_time_interval
 
 from .const import CONTROL_ENTITIES, DOMAIN, PLATFORMS, SIGNAL_EVENT, SIGNAL_NEW_SPOT
-from .hub import RondelHub, Spot
+from .hub import RespotHub, Spot
 
-type RondelConfigEntry = ConfigEntry[RondelHub]
+type RespotConfigEntry = ConfigEntry[RespotHub]
 
 REPORT_SCHEMA = vol.Schema(
     {
@@ -56,9 +56,9 @@ REPORT_SCHEMA = vol.Schema(
 )
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: RondelConfigEntry) -> bool:
-    """Set up Rondel from its (single) config entry."""
-    hub = RondelHub(hass, entry)
+async def async_setup_entry(hass: HomeAssistant, entry: RespotConfigEntry) -> bool:
+    """Set up re-spot from its (single) config entry."""
+    hub = RespotHub(hass, entry)
     await hub.async_load()
     entry.runtime_data = hub
 
@@ -124,13 +124,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: RondelConfigEntry) -> bo
     return True
 
 
-async def async_unload_entry(hass: HomeAssistant, entry: RondelConfigEntry) -> bool:
+async def async_unload_entry(hass: HomeAssistant, entry: RespotConfigEntry) -> bool:
     """Unload the config entry."""
     hass.services.async_remove(DOMAIN, "report")
     return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
 
 
-async def async_remove_config_entry_device(hass: HomeAssistant, entry: RondelConfigEntry, device: DeviceEntry) -> bool:
+async def async_remove_config_entry_device(hass: HomeAssistant, entry: RespotConfigEntry, device: DeviceEntry) -> bool:
     """Allow deleting a Spot's device; it comes back if that Spot reports again."""
     for domain, spot_id in device.identifiers:
         if domain == DOMAIN:

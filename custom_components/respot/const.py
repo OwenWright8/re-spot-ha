@@ -1,8 +1,8 @@
-"""Constants for the Rondel integration."""
+"""Constants for the re-spot integration."""
 
 from homeassistant.const import Platform
 
-DOMAIN = "rondel"
+DOMAIN = "respot"
 
 PLATFORMS = [
     Platform.BINARY_SENSOR,

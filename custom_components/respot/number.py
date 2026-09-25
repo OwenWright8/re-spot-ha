@@ -1,4 +1,4 @@
-"""Backlight brightness for a Rondel Spot."""
+"""Backlight brightness for a re-spot Spot."""
 
 from __future__ import annotations
 
@@ -7,15 +7,15 @@ from homeassistant.const import PERCENTAGE
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from . import RondelConfigEntry
-from .entity import RondelEntity, setup_spot_platform
+from . import RespotConfigEntry
+from .entity import RespotEntity, setup_spot_platform
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: RondelConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
-    setup_spot_platform(hass, entry, async_add_entities, lambda hub, spot: [RondelBrightness(hub, spot)])
+async def async_setup_entry(hass: HomeAssistant, entry: RespotConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
+    setup_spot_platform(hass, entry, async_add_entities, lambda hub, spot: [RespotBrightness(hub, spot)])
 
 
-class RondelBrightness(RondelEntity, NumberEntity):
+class RespotBrightness(RespotEntity, NumberEntity):
     """Screen brightness while the screen is on (the Night face and "screen off" still dim it)."""
 
     _attr_translation_key = "brightness"

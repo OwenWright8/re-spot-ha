@@ -1,4 +1,4 @@
-"""Top-button and alarm events from a Rondel Spot."""
+"""Top-button and alarm events from a re-spot Spot."""
 
 from __future__ import annotations
 
@@ -9,19 +9,19 @@ from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from . import RondelConfigEntry
+from . import RespotConfigEntry
 from .const import ALARM_EVENT_TYPES, BUTTON_EVENT_TYPES, SIGNAL_EVENT
-from .entity import RondelEntity, setup_spot_platform
+from .entity import RespotEntity, setup_spot_platform
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: RondelConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
+async def async_setup_entry(hass: HomeAssistant, entry: RespotConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
     setup_spot_platform(hass, entry, async_add_entities, lambda hub, spot: [
-        RondelEvent(hub, spot, "button", "button", BUTTON_EVENT_TYPES, "mdi:gesture-tap-button"),
-        RondelEvent(hub, spot, "alarm", "alarm_event", ALARM_EVENT_TYPES, "mdi:alarm-note"),
+        RespotEvent(hub, spot, "button", "button", BUTTON_EVENT_TYPES, "mdi:gesture-tap-button"),
+        RespotEvent(hub, spot, "alarm", "alarm_event", ALARM_EVENT_TYPES, "mdi:alarm-note"),
     ])
 
 
-class RondelEvent(RondelEntity, EventEntity):
+class RespotEvent(RespotEntity, EventEntity):
     """Fires when the Spot reports a button press or an alarm stage."""
 
     def __init__(self, hub, spot, source: str, key: str, types: list[str], icon: str) -> None:

@@ -1,4 +1,4 @@
-"""Face selector for a Rondel Spot."""
+"""Face selector for a re-spot Spot."""
 
 from __future__ import annotations
 
@@ -6,16 +6,16 @@ from homeassistant.components.select import SelectEntity
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from . import RondelConfigEntry
-from .entity import RondelEntity, setup_spot_platform
+from . import RespotConfigEntry
+from .entity import RespotEntity, setup_spot_platform
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: RondelConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
-    setup_spot_platform(hass, entry, async_add_entities, lambda hub, spot: [RondelFaceSelect(hub, spot)])
+async def async_setup_entry(hass: HomeAssistant, entry: RespotConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
+    setup_spot_platform(hass, entry, async_add_entities, lambda hub, spot: [RespotFaceSelect(hub, spot)])
 
 
-class RondelFaceSelect(RondelEntity, SelectEntity):
-    """The face on screen, limited to the faces chosen for this Spot on the Rondel website.
+class RespotFaceSelect(RespotEntity, SelectEntity):
+    """The face on screen, limited to the faces chosen for this Spot on the re-spot website.
 
     The Spot follows this entity and reports swipes through it.
     """

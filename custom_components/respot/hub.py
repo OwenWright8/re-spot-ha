@@ -1,4 +1,4 @@
-"""State for all Rondel Spots known to this Home Assistant."""
+"""State for all re-spot Spots known to this Home Assistant."""
 
 from __future__ import annotations
 
@@ -39,7 +39,7 @@ class Spot:
         return self.last_seen > 0 and monotonic() - self.last_seen < ONLINE_TIMEOUT
 
 
-class RondelHub:
+class RespotHub:
     """Keeps the Spots, persists their settings, and tells entities when something changed."""
 
     def __init__(self, hass: HomeAssistant, entry: ConfigEntry) -> None:

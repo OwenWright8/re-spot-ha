@@ -1,0 +1,13 @@
+{
+  "domain": "respot",
+  "name": "re-spot",
+  "codeowners": ["@OwenWright8"],
+  "config_flow": true,
+  "documentation": "https://github.com/OwenWright8/re-spot-ha",
+  "integration_type": "hub",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/OwenWright8/re-spot-ha/issues",
+  "requirements": [],
+  "single_config_entry": true,
+  "version": "0.2.0"
+}

@@ -1,4 +1,4 @@
-"""Config flow for Rondel: one entry; Spots then appear on their own."""
+"""Config flow for re-spot: one entry; Spots then appear on their own."""
 
 from __future__ import annotations
 
@@ -9,13 +9,13 @@ from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
 from .const import DOMAIN
 
 
-class RondelConfigFlow(ConfigFlow, domain=DOMAIN):
-    """Add the Rondel integration."""
+class RespotConfigFlow(ConfigFlow, domain=DOMAIN):
+    """Add the re-spot integration."""
 
     VERSION = 1
 
     async def async_step_user(self, user_input: dict[str, Any] | None = None) -> ConfigFlowResult:
-        """Confirm adding Rondel."""
+        """Confirm adding re-spot."""
         if user_input is not None:
-            return self.async_create_entry(title="Rondel", data={})
+            return self.async_create_entry(title="re-spot", data={})
         return self.async_show_form(step_id="user")

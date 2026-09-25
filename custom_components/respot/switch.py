@@ -1,4 +1,4 @@
-"""Screen and alarm switches for a Rondel Spot."""
+"""Screen and alarm switches for a re-spot Spot."""
 
 from __future__ import annotations
 
@@ -8,16 +8,16 @@ from homeassistant.components.switch import SwitchEntity
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from . import RondelConfigEntry
-from .entity import RondelEntity, setup_spot_platform
+from . import RespotConfigEntry
+from .entity import RespotEntity, setup_spot_platform
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: RondelConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
+async def async_setup_entry(hass: HomeAssistant, entry: RespotConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
     setup_spot_platform(hass, entry, async_add_entities,
-                        lambda hub, spot: [RondelSwitch(hub, spot, "screen", "mdi:tablet"), RondelSwitch(hub, spot, "alarm_on", "mdi:alarm")])
+                        lambda hub, spot: [RespotSwitch(hub, spot, "screen", "mdi:tablet"), RespotSwitch(hub, spot, "alarm_on", "mdi:alarm")])
 
 
-class RondelSwitch(RondelEntity, SwitchEntity):
+class RespotSwitch(RespotEntity, SwitchEntity):
     """A boolean setting on the Spot: "screen" (on/off) or "alarm_on" (alarm enabled)."""
 
     def __init__(self, hub, spot, key: str, icon: str) -> None:

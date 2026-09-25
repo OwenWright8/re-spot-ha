@@ -1,4 +1,4 @@
-"""Connected status for a Rondel Spot."""
+"""Connected status for a re-spot Spot."""
 
 from __future__ import annotations
 
@@ -7,15 +7,15 @@ from homeassistant.const import EntityCategory
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from . import RondelConfigEntry
-from .entity import RondelEntity, setup_spot_platform
+from . import RespotConfigEntry
+from .entity import RespotEntity, setup_spot_platform
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: RondelConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
-    setup_spot_platform(hass, entry, async_add_entities, lambda hub, spot: [RondelConnected(hub, spot)])
+async def async_setup_entry(hass: HomeAssistant, entry: RespotConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
+    setup_spot_platform(hass, entry, async_add_entities, lambda hub, spot: [RespotConnected(hub, spot)])
 
 
-class RondelConnected(RondelEntity, BinarySensorEntity):
+class RespotConnected(RespotEntity, BinarySensorEntity):
     """On while the Spot keeps reporting (it checks in every minute)."""
 
     _attr_translation_key = "connected"

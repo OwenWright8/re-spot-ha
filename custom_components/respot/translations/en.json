@@ -2,12 +2,12 @@
   "config": {
     "step": {
       "user": {
-        "title": "Rondel",
-        "description": "Adds Rondel. Every Echo Spot running Rondel that's connected to this Home Assistant then shows up here as its own device, with its face, screen, brightness and alarm settings, button and alarm events, and a notify entity for sending messages to its screen."
+        "title": "re-spot",
+        "description": "Adds re-spot. Every Echo Spot running re-spot that's connected to this Home Assistant then shows up here as its own device, with its face, screen, brightness and alarm settings, button and alarm events, and a notify entity for sending messages to its screen."
       }
     },
     "abort": {
-      "single_instance_allowed": "Rondel is already set up. New Spots are added automatically."
+      "single_instance_allowed": "re-spot is already set up. New Spots are added automatically."
     }
   },
   "entity": {
@@ -65,9 +65,9 @@
   "services": {
     "report": {
       "name": "Report",
-      "description": "Used by Rondel Spots to register and check in. You don't need to call this yourself.",
+      "description": "Used by re-spot Spots to register and check in. You don't need to call this yourself.",
       "fields": {
-        "spot_id": { "name": "Spot ID", "description": "The Spot's Rondel device ID." },
+        "spot_id": { "name": "Spot ID", "description": "The Spot's re-spot device ID." },
         "name": { "name": "Name", "description": "The Spot's name." },
         "faces": { "name": "Faces", "description": "Faces available on the Spot." },
         "version": { "name": "Version", "description": "Player version." },
