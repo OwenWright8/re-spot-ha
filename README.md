@@ -9,6 +9,8 @@ Every Echo Spot (2017) running [re-spot](https://re-spot.org) shows up in Home A
 | **Brightness** (number) | Backlight brightness, 5–100 %. |
 | **Alarm time** (time) / **Alarm** (switch) | The Spot's daily sunrise alarm. |
 | **Auto-rotate** (switch) | Cycle through faces on its own, every so often (interval and which faces are set on the website). |
+| **Sleep sound** (select) | Play Rainforest, Ocean or Thunderstorm, or Off. Switches the Spot to that face and starts/stops it. |
+| **Sleep timer** (number) | Minutes left on whichever sleep sound is playing; 0 means no timer. Only does something while a sound is actually playing. |
 | **Top button** (event) | `single`, `double` and `hold` presses of the Spot's top button. Use it to trigger automations. |
 | **Alarm** (event) | `sunrise`, `ringing`, `dismissed`, `timeout`, `cancelled`. |
 | **Last message** (sensor) | The latest icon a connected friend's Spot sent. |
@@ -49,4 +51,12 @@ The Spot already keeps a websocket connection to Home Assistant for its Home dia
 - action: notify.send_message
   target: { entity_id: notify.bedroom_spot_message }
   data: { title: Laundry, message: The dryer is done }
+
+# Play Rainforest with a 45-minute sleep timer, from a bedtime routine
+- action: select.select_option
+  target: { entity_id: select.bedroom_spot_sleep_sound }
+  data: { option: Rainforest }
+- action: number.set_value
+  target: { entity_id: number.bedroom_spot_sleep_timer }
+  data: { value: 45 }
 ```

@@ -3,8 +3,9 @@
 The Spot keeps its own websocket connection to Home Assistant (as it does for its Home dial).
 It calls ``respot.report`` to register, to send a heartbeat, and to report button/alarm events and
 messages; the response tells it which entities are its controls. From then on it follows those
-entities' state changes (face, screen, brightness, alarm, auto-rotate), and changes made on the
-Spot are sent back through the entities' normal services. Nothing here connects to the Spot directly.
+entities' state changes (face, screen, brightness, alarm, auto-rotate, sleep sound + its timer), and
+changes made on the Spot are sent back through the entities' normal services. Nothing here connects
+to the Spot directly.
 """
 
 from __future__ import annotations
@@ -21,7 +22,7 @@ from homeassistant.helpers.device_registry import DeviceEntry
 from homeassistant.helpers.dispatcher import async_dispatcher_send
 from homeassistant.helpers.event import async_track_time_interval
 
-from .const import CONTROL_ENTITIES, DOMAIN, PLATFORMS, SIGNAL_EVENT, SIGNAL_NEW_SPOT
+from .const import CONTROL_ENTITIES, DOMAIN, PLATFORMS, SIGNAL_EVENT, SIGNAL_NEW_SPOT, SOUND_OPTIONS
 from .hub import RespotHub, Spot
 
 type RespotConfigEntry = ConfigEntry[RespotHub]
@@ -41,6 +42,8 @@ REPORT_SCHEMA = vol.Schema(
                 vol.Optional("alarm_time"): cv.string,
                 vol.Optional("alarm_on"): cv.boolean,
                 vol.Optional("rotate_on"): cv.boolean,
+                vol.Optional("sound"): vol.In(SOUND_OPTIONS),
+                vol.Optional("sleep_timer"): vol.All(vol.Coerce(float), vol.Range(min=0, max=120)),
             },
             extra=vol.REMOVE_EXTRA,
         ),
@@ -80,6 +83,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: RespotConfigEntry) -> bo
                 alarm_time=init.get("alarm_time", "07:00:00"),
                 alarm_on=init.get("alarm_on", False),
                 rotate_on=init.get("rotate_on", False),
+                sound=init.get("sound", "Off"),
+                sleep_timer=init.get("sleep_timer", 0),
             )
         else:
             if data.get("faces"):
