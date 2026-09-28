@@ -3,8 +3,8 @@
 The Spot keeps its own websocket connection to Home Assistant (as it does for its Home dial).
 It calls ``respot.report`` to register, to send a heartbeat, and to report button/alarm events and
 messages; the response tells it which entities are its controls. From then on it follows those
-entities' state changes (face, screen, brightness, alarm), and changes made on the Spot are sent
-back through the entities' normal services. Nothing here connects to the Spot directly.
+entities' state changes (face, screen, brightness, alarm, auto-rotate), and changes made on the
+Spot are sent back through the entities' normal services. Nothing here connects to the Spot directly.
 """
 
 from __future__ import annotations
@@ -40,6 +40,7 @@ REPORT_SCHEMA = vol.Schema(
                 vol.Optional("brightness"): vol.All(vol.Coerce(float), vol.Range(min=5, max=100)),
                 vol.Optional("alarm_time"): cv.string,
                 vol.Optional("alarm_on"): cv.boolean,
+                vol.Optional("rotate_on"): cv.boolean,
             },
             extra=vol.REMOVE_EXTRA,
         ),
@@ -78,6 +79,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: RespotConfigEntry) -> bo
                 brightness=init.get("brightness", 100),
                 alarm_time=init.get("alarm_time", "07:00:00"),
                 alarm_on=init.get("alarm_on", False),
+                rotate_on=init.get("rotate_on", False),
             )
         else:
             if data.get("faces"):

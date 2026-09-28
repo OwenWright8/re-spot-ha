@@ -1,6 +1,6 @@
 # re-spot for Home Assistant
 
-Every Echo Spot (2017) running [re-spot](https://spot.wrightserver.org) shows up in Home Assistant as its own device, with all of its settings on one page.
+Every Echo Spot (2017) running [re-spot](https://re-spot.org) shows up in Home Assistant as its own device, with all of its settings on one page.
 
 | Entity | What it does |
 | --- | --- |
@@ -8,6 +8,7 @@ Every Echo Spot (2017) running [re-spot](https://spot.wrightserver.org) shows up
 | **Screen** (switch) | Screen on/off. |
 | **Brightness** (number) | Backlight brightness, 5–100 %. |
 | **Alarm time** (time) / **Alarm** (switch) | The Spot's daily sunrise alarm. |
+| **Auto-rotate** (switch) | Cycle through faces on its own, every so often (interval and which faces are set on the website). |
 | **Top button** (event) | `single`, `double` and `hold` presses of the Spot's top button. Use it to trigger automations. |
 | **Alarm** (event) | `sunrise`, `ringing`, `dismissed`, `timeout`, `cancelled`. |
 | **Last message** (sensor) | The latest icon a connected friend's Spot sent. |

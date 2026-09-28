@@ -33,6 +33,7 @@ CONTROL_ENTITIES = {
     "brightness": "number",
     "alarm_time": "time",
     "alarm_on": "switch",
+    "rotate_on": "switch",
 }
 
 BUTTON_EVENT_TYPES = ["single", "double", "hold"]

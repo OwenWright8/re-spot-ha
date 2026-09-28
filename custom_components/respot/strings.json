@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "re-spot",
-        "description": "Adds re-spot. Every Echo Spot running re-spot that's connected to this Home Assistant then shows up here as its own device, with its face, screen, brightness and alarm settings, button and alarm events, and a notify entity for sending messages to its screen."
+        "description": "Adds re-spot. Every Echo Spot running re-spot that's connected to this Home Assistant then shows up here as its own device, with its face, screen, brightness, alarm and auto-rotate settings, button and alarm events, and a notify entity for sending messages to its screen."
       }
     },
     "abort": {
@@ -16,7 +16,8 @@
     },
     "switch": {
       "screen": { "name": "Screen" },
-      "alarm": { "name": "Alarm" }
+      "alarm": { "name": "Alarm" },
+      "rotate": { "name": "Auto-rotate" }
     },
     "number": {
       "brightness": { "name": "Brightness" }

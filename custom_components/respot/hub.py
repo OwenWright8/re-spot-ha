@@ -29,6 +29,7 @@ class Spot:
     brightness: float = 100
     alarm_time: str = "07:00:00"
     alarm_on: bool = False
+    rotate_on: bool = False
     last_message: str | None = None
     version: str | None = None
     last_seen: float = 0  # monotonic; not stored
