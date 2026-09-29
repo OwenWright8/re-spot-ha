@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from homeassistant.components.notify import NotifyEntity
+from homeassistant.exceptions import HomeAssistantError
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
@@ -24,4 +25,6 @@ class RespotNotify(RespotEntity, NotifyEntity):
         super().__init__(hub, spot, "message")
 
     async def async_send_message(self, message: str, title: str | None = None) -> None:
+        if not self._spot.online:
+            raise HomeAssistantError("The Spot is offline; the message was not sent.")
         self.hass.bus.async_fire(EVENT_NOTIFY, {"spot_id": self._spot.spot_id, "message": message, "title": title})
