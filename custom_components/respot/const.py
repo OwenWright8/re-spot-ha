@@ -39,7 +39,7 @@ CONTROL_ENTITIES = {
 }
 
 # Fixed options for the Sound select: "Off" plus every sleep-sound face the player has.
-SOUND_OPTIONS = ["Off", "Rainforest", "Ocean", "Thunderstorm"]
+SOUND_OPTIONS = ["Off", "Rainforest", "Ocean", "Thunderstorm", "Fan"]
 
 BUTTON_EVENT_TYPES = ["single", "double", "hold"]
 ALARM_EVENT_TYPES = ["sunrise", "ringing", "dismissed", "timeout", "cancelled"]

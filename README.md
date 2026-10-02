@@ -9,7 +9,7 @@ Every Echo Spot (2017) running [re-spot](https://re-spot.org) shows up in Home A
 | **Brightness** (number) | Backlight brightness, 5–100 %. |
 | **Alarm time** (time) / **Alarm** (switch) | The Spot's daily sunrise alarm. |
 | **Auto-rotate** (switch) | Cycle through faces on its own, every so often (interval and which faces are set on the website). |
-| **Sleep sound** (select) | Play Rainforest, Ocean or Thunderstorm, or Off. Switches the Spot to that face and starts/stops it. |
+| **Sleep sound** (select) | Play Rainforest, Ocean, Thunderstorm or Fan, or Off. Switches the Spot to that face and starts/stops it. |
 | **Sleep timer** (number) | Minutes left on whichever sleep sound is playing; 0 means no timer. Only does something while a sound is actually playing. |
 | **Top button** (event) | `single`, `double` and `hold` presses of the Spot's top button. Use it to trigger automations. |
 | **Alarm** (event) | `sunrise`, `ringing`, `dismissed`, `timeout`, `cancelled`. |
